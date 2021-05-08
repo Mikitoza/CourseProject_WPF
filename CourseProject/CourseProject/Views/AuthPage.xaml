@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="CourseProject.Views.AuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProject.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:vm="clr-namespace:CourseProject.ViewModels"
+      xmlns:val ="clr-namespace:CourseProject.Services.Validations"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="450" Background="#FF323232" >
+    <UserControl.DataContext>
+        <vm:AuthPageViewModel/>
+    </UserControl.DataContext>
+    <materialDesign:DialogHost 
+        IsOpen="{Binding DialogVisible}">
+        <materialDesign:DialogHost.DialogContent>
+            <Border Height="Auto" Width="Auto" Background="#FF323232">
+                <StackPanel Margin="16" Background="#FF323232">
+                    <TextBlock Text="{Binding DialogText}"/>
+                    <Button Margin="0 10 0 0" Style="{StaticResource MaterialDesignFlatAccentButton}"
+                                Content="Закрыть" Foreground="AliceBlue" Width="90" Height="30" Command="{Binding CloseDialogCommand}"/>
+                </StackPanel>
+            </Border>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="134*"/>
+            <ColumnDefinition Width="163*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="51*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="61*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="71*"/>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="102*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{DynamicResource in}" Grid.Row="2" Grid.Column="1" TextAlignment="Center" FontFamily="Segoe UI Black" Foreground="Green"></TextBlock>
+            <TextBox Foreground="AliceBlue" materialDesign:HintAssist.Hint="{DynamicResource Login}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Margin="0,19,0,20" Height="36">
+                <TextBox.Text>
+                    <Binding Path="Login" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule/>
+                            <val:MinimumCharacterRule MinimumCharacters="3" />
+                            <val:MaximumCharacterRule MaximumCharacters="20" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <PasswordBox x:Name="PasswordBox" Foreground="AliceBlue"  materialDesign:HintAssist.Hint="{DynamicResource Password}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:HintAssist.HelperText="{DynamicResource 8keys}" Grid.Row="4" Grid.Column="1" Margin="2,0,0,37"/>
+        <Button Command="{Binding AuthCommand}" CommandParameter="{Binding ElementName=PasswordBox}"  Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Grid.Column="1" Margin="2,10,0,4" Grid.Row="5" Height="Auto">
+            <TextBlock Text="{DynamicResource in}" />
+        </Button>
+        <Grid x:Name="MoveTo" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,40" Grid.RowSpan="2">
+
+        </Grid>
+    </Grid>
+    </materialDesign:DialogHost>
+</UserControl>

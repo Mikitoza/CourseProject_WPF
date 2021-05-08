@@ -1,0 +1,49 @@
+﻿<Application x:Class="CourseProject.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CourseProject"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:CourseProject.ViewModels"
+             xmlns:views="clr-namespace:CourseProject.Views"
+             StartupUri="Views/LoginWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Green" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="Resources/Style.xaml"/>
+                <ResourceDictionary Source="Services/Language/DictionaryEng.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type vm:AuthPageViewModel}">
+                <views:AuthPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RegisterPageViewModel}">
+                <views:RegisterPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SingerPageViewModel}">
+                <views:SingerPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminPageViewModel}">
+                <views:AdminPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:MainPageViewModel}">
+                <views:MainPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AddAlbumViewModel}">
+                <views:AddAlbumPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AlbumPageViewModel}">
+                <views:AlbumPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ChangeAlbumViewModel}">
+                <views:ChangeAlbum/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ProfilePageViewModel}">
+                <views:Profile/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SearchPageViewModel}">
+                <views:SearchPage/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

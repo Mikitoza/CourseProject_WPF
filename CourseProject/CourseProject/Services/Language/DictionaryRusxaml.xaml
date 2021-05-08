@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CourseProject.Services.Language"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- LoginWindow -->
+    <v:String x:Key="in">Вход</v:String>
+    <v:String x:Key="Register">Регистрация</v:String>
+    <!-- AuthPage -->
+    <v:String x:Key="Login">Логин</v:String>
+    <v:String x:Key="Password">Пароль</v:String>
+    <v:String x:Key="8keys">Как минимум 8 символов</v:String>
+    <!-- RegisterPage -->
+    <v:String x:Key="Singer">Вы исполнитель?</v:String>
+    <!-- MainWindow -->
+    <v:String x:Key="Search">Поиск</v:String>
+    <v:String x:Key="MainPage">Главная страница</v:String>
+    <v:String x:Key="Profile">Профиль</v:String>
+    <v:String x:Key="Language">Язык</v:String>
+    <v:String x:Key="SingerPage">Испольнитель</v:String>
+    <v:String x:Key="AddAlbumPage">Добавить альбом</v:String>
+    <v:String x:Key="Admin">Админ</v:String>
+    <!-- AddAlbumPage -->
+    <v:String x:Key="PicsAlb">Выберите обложку альбома</v:String>
+        <v:String x:Key="GenreName">Наименование жанра</v:String>
+    <v:String x:Key="AlbumName">Название альбома</v:String>
+    <v:String x:Key="AddGenre">Добавить жанр</v:String>
+    <v:String x:Key="AddAlbum">Добавить альбом</v:String>
+    <v:String x:Key="Genre">Жанр</v:String>
+    <!-- AdminPage -->
+    <v:String x:Key="MakeSinger">В испольнители</v:String>
+    <v:String x:Key="MakeUser">В пользователи</v:String>
+    <v:String x:Key="Delete">Удалить</v:String>
+    <!-- ChangeAlbumPage -->
+    <v:String x:Key="TrackName">Название трека</v:String>
+    <v:String x:Key="ChooseTrack">выберие трэк</v:String>
+    <v:String x:Key="AddTrack">Добавить трэк</v:String>
+    <v:String x:Key="DeleteTrack">Удалить трэк</v:String>
+    <v:String x:Key="ChangeAlbum">Изменить альбом</v:String>
+    <!--Main page-->
+    <v:String x:Key="ToAlbum">В альбом</v:String>
+    <!--ProfilePage-->
+    <v:String x:Key="ChangeNick">Изменить ник</v:String>
+    <v:String x:Key="Nickname">Никнейм</v:String>
+    <v:String x:Key="deleteProfile">Удалить профиль</v:String>
+    <v:String x:Key="Load">Подгрузка</v:String>
+    <!--SearchPage-->
+    <v:String x:Key="Albums">Альбомы</v:String>
+    <v:String x:Key="Tracks">Трэки</v:String>
+    <!--SingerPage-->
+    <v:String x:Key="UrAlbums">Ваши альбомы</v:String>
+    <v:String x:Key="Change">Изменить</v:String>
+    <v:String x:Key="DeleteAlbums">Удалить альбом</v:String>
+</ResourceDictionary>

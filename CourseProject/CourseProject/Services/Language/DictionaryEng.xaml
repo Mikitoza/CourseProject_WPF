@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CourseProject.Services.Language"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- LoginWindow -->
+    <v:String x:Key="in">Log in</v:String>
+    <v:String x:Key="Register">Register</v:String>
+    <!-- AuthPage -->
+    <v:String x:Key="Login">Login</v:String>
+    <v:String x:Key="Password">Password</v:String>
+    <v:String x:Key="8keys">At least 8 characters</v:String>
+    <!-- RegisterPage -->
+    <v:String x:Key="Singer">Are you singer?</v:String>
+    <!-- MainWindow -->
+    <v:String x:Key="Search">Search</v:String>
+    <v:String x:Key="MainPage">Main page</v:String>
+    <v:String x:Key="Profile">Profile</v:String>
+    <v:String x:Key="Language">Language</v:String>
+    <v:String x:Key="SingerPage">Singer</v:String>
+    <v:String x:Key="AddAlbumPage">Add album</v:String>
+    <v:String x:Key="Admin">Admin</v:String>
+    <!-- AddAlbumPage -->
+    <v:String x:Key="PicsAlb">Choose album photo</v:String>
+    <v:String x:Key="GenreName">Genre name</v:String>
+    <v:String x:Key="AlbumName">Album name</v:String>
+    <v:String x:Key="AddGenre">Add genre</v:String>
+    <v:String x:Key="AddAlbum">Add album</v:String>
+    <v:String x:Key="Genre">Genre</v:String>
+    <!-- AdminPage -->
+    <v:String x:Key="MakeSinger">Make singer</v:String>
+    <v:String x:Key="MakeUser">Make user</v:String>
+    <v:String x:Key="Delete">Delete</v:String>
+    <!-- ChangeAlbumPage -->
+    <v:String x:Key="TrackName">Track name</v:String>
+    <v:String x:Key="ChooseTrack">Chose track</v:String>
+    <v:String x:Key="AddTrack">Add track</v:String>
+    <v:String x:Key="DeleteTrack">Delete track</v:String>
+    <v:String x:Key="ChangeAlbum">Change album</v:String>
+    <!--Main page-->
+    <v:String x:Key="ToAlbum">To album</v:String>
+    <!--ProfilePage-->
+    <v:String x:Key="ChangeNick">Change nick</v:String>
+    <v:String x:Key="Nickname">Nickname</v:String>
+    <v:String x:Key="deleteProfile">Delete profile</v:String>
+    <v:String x:Key="Load">Load</v:String>
+    <!--SearchPage-->
+    <v:String x:Key="Albums">Albums</v:String>
+    <v:String x:Key="Tracks">Tracks</v:String>
+    <!--SingerPage-->
+    <v:String x:Key="UrAlbums">Your albums</v:String>
+    <v:String x:Key="Change">Change</v:String>
+    <v:String x:Key="DeleteAlbums">Delete album</v:String>
+</ResourceDictionary>

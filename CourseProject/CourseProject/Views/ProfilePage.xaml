@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="CourseProject.Views.Profile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:CourseProject.ViewModels"
+             xmlns:val="clr-namespace:CourseProject.Services.Validations"
+             xmlns:local="clr-namespace:CourseProject.Views"
+               d:DataContext="{d:DesignInstance Type=vm:ProfilePageViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="#FF1D1D1D">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="253*"/>
+            <ColumnDefinition Width="59*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="182*"/>
+        </Grid.RowDefinitions>
+        <Button Content="{DynamicResource ChangeNick}" Command="{Binding ChangeNickNameCommand}" Margin="0,27"/>
+        <Button Content="{DynamicResource deleteProfile}" Grid.Column="2" Margin="0,27" Command="{Binding DeleteCommand}"/>
+        <TextBox Foreground="AliceBlue" materialDesign:HintAssist.Hint="{DynamicResource Nickname}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Grid.Column="1" Margin="209,10,210,27" Height="49" >
+            <TextBox.Text>
+                <Binding Path="nickname" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <val:NotEmptyValidationRule/>
+                        <val:MinimumCharacterRule MinimumCharacters="3" />
+                        <val:MaximumCharacterRule MaximumCharacters="20" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" PreviewMouseWheel="Scroll" Margin="10" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <ListBox ItemsSource="{Binding usersTracksList}" SelectedItem="{Binding selectTrack}" Width="484" Height="Auto" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="20 20 20 0" Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="1" Margin="0,0,0,-18">
+                                <TextBlock Text="{Binding track_name}" FontSize="17" Foreground="AliceBlue" Margin="5 5 0 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </ScrollViewer>
+        <Button Height="Auto" Margin="34,54,36,263" Command="{Binding AddTrackToUserTracksCommand}" Grid.Column="2" Grid.Row="1">
+            <materialDesign:PackIcon Kind="Heart" Height="34" Width="24" />
+        </Button>
+        <Button Height="Auto" Margin="34,106,36,211" Command="{Binding DeleteTrackToUserTracksCommand}" Grid.Column="2" Grid.Row="1">
+            <materialDesign:PackIcon Kind="HeartOutline" Height="34" Width="24" />
+        </Button>
+        <Button Command="{Binding LoadCommand}" Content="{DynamicResource Load}" Grid.Column="2" Margin="10,169,10,163" Grid.Row="1"/>
+    </Grid>
+</UserControl>
