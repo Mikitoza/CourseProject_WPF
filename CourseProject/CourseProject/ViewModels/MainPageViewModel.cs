@@ -15,6 +15,12 @@ namespace CourseProject.ViewModels
         private readonly MusicService db = new MusicService();
         private MainWindowViewModel _MainWindowViewModel;
         private ObservableCollection<ALBUMS> _albumlist = new ObservableCollection<ALBUMS>();
+        private int _WitdhAlbums;
+        public int WidthAlbums
+        {
+            get => _WitdhAlbums;
+            set => Set(ref _WitdhAlbums, value);
+        }
         private USERS _user;
         public USERS user
         {
@@ -45,8 +51,9 @@ namespace CourseProject.ViewModels
             var aLBUMs = db.ALBUMS;
             foreach (ALBUMS al in aLBUMs)
             {
-                _albumlist.Add(al);
+                albumlist.Add(al);
             }
+            WidthAlbums = 250 * albumlist.Count;
             ToAlbumPageCommand = new LambdaCommand(OnToAlbumPageCommandExecuted, CanToAlbumPageCommandExecute);
         }
     }

@@ -30,7 +30,6 @@ namespace CourseProject
 			m_Languages.Add(new CultureInfo("en-US")); //Нейтральная культура для этого проекта
 			m_Languages.Add(new CultureInfo("ru-RU"));
 		}
-		public static event EventHandler LanguageChanged;
 
 		public static CultureInfo Language
 		{
@@ -52,29 +51,24 @@ namespace CourseProject
 				{
 					case "ru-RU":
 						dict.Source = new Uri(String.Format("Services/Language/DictionaryRusxaml.xaml", value.Name), UriKind.Relative);
+						ResourceDictionary oldDict = (from d in Application.Current.Resources.MergedDictionaries
+													  where d.Source != null && d.Source.OriginalString.StartsWith("Services/Language/DictionaryEng.xaml")
+													  select d).First();
+						int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);
+						Application.Current.Resources.MergedDictionaries.Remove(oldDict);
+						Application.Current.Resources.MergedDictionaries.Insert(ind, dict);
 						break;
 					default:
 						dict.Source = new Uri("Services/Language/DictionaryEng.xaml", UriKind.Relative);
+						ResourceDictionary oldDict1 = (from d in Application.Current.Resources.MergedDictionaries
+													  where d.Source != null && d.Source.OriginalString.StartsWith("Services/Language/DictionaryRusxaml.xaml")
+													  select d).First();
+						int ind1 = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict1);
+						Application.Current.Resources.MergedDictionaries.Remove(oldDict1);
+						Application.Current.Resources.MergedDictionaries.Insert(ind1, dict);
 						break;
 				}
 
-				//3. Находим старую ResourceDictionary и удаляем его и добавляем новую ResourceDictionary
-				ResourceDictionary oldDict = (from d in Application.Current.Resources.MergedDictionaries
-											  where d.Source != null && d.Source.OriginalString.StartsWith("Services/Language/DictionaryEng.xaml")
-											  select d).First();
-				if (oldDict != null)
-				{
-					int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);
-					Application.Current.Resources.MergedDictionaries.Remove(oldDict);
-					Application.Current.Resources.MergedDictionaries.Insert(ind, dict);
-				}
-				else
-				{
-					Application.Current.Resources.MergedDictionaries.Add(dict);
-				}
-
-				//4. Вызываем евент для оповещения всех окон.
-				LanguageChanged(Application.Current, new EventArgs());
 			}
 		}
 	}

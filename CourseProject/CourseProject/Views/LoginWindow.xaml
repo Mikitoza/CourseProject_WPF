@@ -23,7 +23,7 @@
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
         <Button Margin="35,10,164,8" Content="{DynamicResource Register}" Command="{Binding SwitchViewCommand}" IsEnabled="{Binding IsLogin}" CommandParameter="RegisterPage" Height="Auto"></Button>
-        <Button Margin="164,10,54,8" Content="{DynamicResource in}" Command="{Binding SwitchViewCommand}" IsEnabled="{Binding IsRegister}" CommandParameter="AuthPage" Height="Auto"></Button>
+        <Button Margin="164,10,49,8" Content="{DynamicResource in}" Command="{Binding SwitchViewCommand}" IsEnabled="{Binding IsRegister}" CommandParameter="AuthPage" Height="Auto"></Button>
         <ContentControl Grid.Row="1" Grid.ColumnSpan="4" Content="{Binding selectedVM}">
         </ContentControl>
         <Button x:Name="Exit"

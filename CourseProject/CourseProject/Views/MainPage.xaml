@@ -15,10 +15,10 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="43*"/>
-            <RowDefinition Height="93*"/>
-            <RowDefinition Height="87*"/>
-            <RowDefinition Height="77*"/>
+            <RowDefinition Height="69*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="226*"/>
+            <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="73*"/>
@@ -28,8 +28,9 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="{DynamicResource MainPage}" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontFamily="Segoe UI Black" FontSize="36" Margin="75,10,57,0"></TextBlock>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.Row="1"  PreviewMouseWheel="Scroll" Margin="10,43,10,50" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <ListBox Width="Auto" 
+        <TextBlock Text="{DynamicResource AllAbums}" Grid.ColumnSpan="2" Grid.Row="1" Foreground="White" FontFamily="Segoe UI Black" FontSize="36" TextAlignment="Center"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.Row="2"  PreviewMouseWheel="Scroll" Margin="10,1,10,15" Grid.ColumnSpan="4">
+            <ListBox Width="{Binding WidthAlbums}" 
          ItemsSource ="{Binding albumlist}" SelectedItem="{Binding selectedAlbum}" Height="177">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -39,7 +40,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0 0 50 0">
-                            <Image Height="100" Width="100" Source="{Binding album_id, Converter={StaticResource IDToSinger}}"/>
+                            <Image Height="200" Width="200" Source="{Binding album_id, Converter={StaticResource IDToSinger}}"/>
                             <TextBlock Foreground="AliceBlue" FontSize="20" Text="{Binding albums_name}" />
                         </StackPanel>
                     </DataTemplate>

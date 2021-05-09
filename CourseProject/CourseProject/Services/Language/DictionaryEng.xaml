@@ -38,6 +38,7 @@
     <v:String x:Key="ChangeAlbum">Change album</v:String>
     <!--Main page-->
     <v:String x:Key="ToAlbum">To album</v:String>
+    <v:String x:Key="AllAbums">All albums</v:String>
     <!--ProfilePage-->
     <v:String x:Key="ChangeNick">Change nick</v:String>
     <v:String x:Key="Nickname">Nickname</v:String>

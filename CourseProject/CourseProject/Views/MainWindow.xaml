@@ -80,6 +80,7 @@
                 </TextBox>
                 <Menu x:Name="User_menu" Grid.Column="7">
                     <MenuItem Header="{materialDesign:PackIcon Kind=ChevronDownCircle}"  Background="#FF4B4A4A" BorderBrush="#FF4B4A4A" Height="50" Width="73">
+                        <MenuItem Header="{DynamicResource Language}" Command="{Binding SwitchLanguageCommand}"/>
                         <MenuItem Header="{DynamicResource MainPage}" Command="{Binding SwitchViewCommand}" CommandParameter="MainPage"></MenuItem>
                         <MenuItem Header="{DynamicResource Profile}"  Command="{Binding SwitchViewCommand}" CommandParameter="ProfilePage"></MenuItem>
                         <MenuItem x:Name="Singer_page" IsEnabled="{Binding IsSinger}" Header="{DynamicResource SingerPage}" Command="{Binding SwitchViewCommand}" CommandParameter="SingerPage"></MenuItem>

@@ -20,6 +20,7 @@ namespace CourseProject.ViewModels
     {
         private readonly string _myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         private readonly MusicService musicService = new MusicService();
+        private bool IsEng = true;
         private bool IsPlay = false;
         private double _sliderValue;
         private string track_name;
@@ -162,7 +163,23 @@ namespace CourseProject.ViewModels
             }
         }
         #endregion
-
+        #region SwitchLanguage
+        public ICommand SwitchLanguageCommand { get; }
+        private bool CanSwitchLanguageCommandExecute(object p) => true;
+        private void OnSwitchLanguageCommandExecuted(object p)
+        {
+            if (IsEng)
+            {
+                App.Language = new CultureInfo("ru-RU");
+                IsEng = false;
+            }
+            else
+            {
+                App.Language = new CultureInfo("en-US");
+                IsEng = true;
+            }
+        }
+        #endregion
         #region Play
         public ICommand PlayTraclCommand { get; }
         private bool CanPlayTraclCommandExecute(object p) => !(selectedTrack == null);
@@ -216,6 +233,7 @@ namespace CourseProject.ViewModels
             SwitchViewCommand = new LambdaCommand(OnSwitchViewCommandExecuted, CanSwitchViewCommandExecute);
             PlayTraclCommand = new LambdaCommand(OnPlayTraclCommandExecuted, CanPlayTraclCommandExecute);
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
+            SwitchLanguageCommand = new LambdaCommand(OnSwitchLanguageCommandExecuted, CanSwitchLanguageCommandExecute);
         }
 
         private void MediaPlayer_MediaOpened(object sender, EventArgs e)
