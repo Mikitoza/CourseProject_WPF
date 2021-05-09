@@ -96,7 +96,6 @@
     <Compile Include="DataModels\GENRES.cs" />
     <Compile Include="DataModels\MusicService.cs" />
     <Compile Include="DataModels\PLAYLISTS.cs" />
-    <Compile Include="DataModels\sysdiagrams.cs" />
     <Compile Include="DataModels\TRACKS.cs" />
     <Compile Include="DataModels\USERS.cs" />
     <Compile Include="Resources\AttachedProperty\NotifySlider.cs" />

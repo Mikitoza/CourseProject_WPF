@@ -39,7 +39,6 @@ namespace CourseProject.DataModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USERS> USERS1 { get; set; }
-
         public TRACKS(string name, int id_user, int album_id, int genre_id)
         {
             this.track_name = name;
@@ -47,5 +46,6 @@ namespace CourseProject.DataModels
             this.album_id = album_id;
             this.genre_id = genre_id;
         }
+
     }
 }

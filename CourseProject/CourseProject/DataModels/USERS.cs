@@ -61,7 +61,7 @@ namespace CourseProject.DataModels
                 return Convert.ToBase64String(hash);
             }
         }
-        public USERS(string login, string password,bool IsSinger)
+        public USERS(string login, string password, bool IsSinger)
         {
             this.user_login = login;
             this.user_password = password;

@@ -15,7 +15,6 @@ namespace CourseProject.DataModels
         public virtual DbSet<ALBUMS> ALBUMS { get; set; }
         public virtual DbSet<GENRES> GENRES { get; set; }
         public virtual DbSet<PLAYLISTS> PLAYLISTS { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TRACKS> TRACKS { get; set; }
         public virtual DbSet<USERS> USERS { get; set; }
 
