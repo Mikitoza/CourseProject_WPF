@@ -43,6 +43,9 @@
             <DataTemplate DataType="{x:Type vm:SearchPageViewModel}">
                 <views:SearchPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AddPlaylistViewModel}">
+                <views:AddPlaylistPage/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

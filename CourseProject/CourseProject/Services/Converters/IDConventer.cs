@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace CourseProject.Services.Converters
 {
@@ -12,14 +13,12 @@ namespace CourseProject.Services.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + $@"\MusicService\{(int)value}\cover.jpg"))
-            {
-                return Environment.GetFolderPath(Environment.SpecialFolder.Personal) + $@"\MusicService\{(int)value}\cover.jpg";
-            }
-            else
-            {
-                return "/Resources/noPhoto.png";
-            }
+            BitmapImage imgTemp = new BitmapImage();
+            imgTemp.BeginInit();
+            imgTemp.CacheOption = BitmapCacheOption.OnLoad;
+            imgTemp.UriSource = new Uri($"http://localhost:3000/albums/{(int)value}/cover.png");
+            imgTemp.EndInit();
+            return imgTemp;
 
         }
 

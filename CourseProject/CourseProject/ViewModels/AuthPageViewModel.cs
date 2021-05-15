@@ -63,30 +63,51 @@ namespace CourseProject.ViewModels
         public void OnAuthCommandExecuted (object p)
         {
             Password = USERS.getHash(((p as PasswordBox).Password));
-            if (dbcontext.USERS.FirstOrDefault(u => u.user_login == Login && u.user_password == Password) != null)
+            try
+            {
+                if (dbcontext.USERS.FirstOrDefault(u => u.user_login == Login && u.user_password == Password) != null)
                 {
-                        USERS user = dbcontext.USERS.FirstOrDefault(u => u.user_login == Login);
-                        MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(user);
-                        MainWindow mainWindow = new MainWindow()
-                        {
-                            DataContext = mainWindowViewModel
-                        };
-                        mainWindow.Show();
-                        Application.Current.MainWindow.Close();
+                    USERS user = dbcontext.USERS.FirstOrDefault(u => u.user_login == Login);
+                    MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(user);
+                    MainWindow mainWindow = new MainWindow()
+                    {
+                        DataContext = mainWindowViewModel
+                    };
+                    mainWindow.Show();
+                    Application.Current.MainWindow.Close();
                 }
-            else
+                else
+                {
+                    DialogVisible = true;
+                    if (App.Language.Name == "ru-Ru")
+                    {
+                        DialogText = "Такой пользователь не найден";
+                    }
+                    else
+                    {
+                        DialogText = "This user is not found";
+                    }
+                }
+            }
+            catch(Exception ex)
             {
                 DialogVisible = true;
-                DialogText = "Такой пользователь не найден";
+                if(App.Language.Name == "ru-Ru")
+                {
+                    DialogText = "Нет подключения к интернету";
+                }
+                else
+                {
+                    DialogText = "Can not connect to database";
+                }
             }
         }
+
+        public bool CanAuthCommandExecute(object p) => Login?.Length > 3 & Login?.Length < 20 && (p as PasswordBox).Password?.Length >= 8;
+        #endregion
         public ICommand CloseDialogCommand { get; }
         private bool CanCloseDialogCommandExecute(object p) => true;
         private void OnCloseDialogCommandExecuted(object p) => DialogVisible = false;
-
-        public bool CanAuthCommandExecute(object p) => Login?.Length > 3 && (p as PasswordBox).Password?.Length >= 8;
-        #endregion
-
         #endregion
 
         public AuthPageViewModel()

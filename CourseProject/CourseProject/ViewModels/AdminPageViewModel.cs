@@ -26,6 +26,12 @@ namespace CourseProject.ViewModels
             get => _usersList;
             set => Set(ref _usersList, value);
         }
+        private int _UsersHeidth;
+        public int UsersHeidth
+        {
+            get => _UsersHeidth;
+            set => Set(ref _UsersHeidth, value);
+        }
         private void RestoreForm()
         {
             usersList = new ObservableCollection<USERS>();
@@ -58,7 +64,7 @@ namespace CourseProject.ViewModels
             }
         }
         public ICommand DeleteCommand { get; }
-        private bool CanDeleteCommandExecute(object p) => selectUser != null &&  selectUser.id_user != (int)UserRole.Admin;
+        private bool CanDeleteCommandExecute(object p) => selectUser != null &&  selectUser.user_role != (int)UserRole.Admin;
         private void OnDeleteCommandExecuted(object p)
         {
             foreach(TRACKS tr in context.TRACKS.Where(tr => tr.id_user == selectUser.id_user))

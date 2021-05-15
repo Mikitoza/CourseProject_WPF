@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ namespace CourseProject.ViewModels
     class ChangeAlbumViewModel : ViewModelBase
     {
         private readonly USERS user;
+        private readonly WebClient myWebClient = new WebClient();
         private MainWindowViewModel _mainWindowViewModel;
         public MainWindowViewModel mainWindowViewModel
         {
@@ -107,7 +109,7 @@ namespace CourseProject.ViewModels
             TRACKS track = new TRACKS(Name, (int)album.id_user, album.album_id, (int)album.genre_id);
             context.TRACKS.Add(track);
             context.SaveChanges();
-            File.Copy(_mp3Path, _myDocumentsPath + $@"\MusicService\{album.album_id}\{track.track_name}.mp3", true);
+            byte[] responseArray = myWebClient.UploadFile($"http://localhost:3000/upload/{track.album_id}/{track.track_name}", _mp3Path);
             RestoreForm();
         }
         public ICommand SelectMp3PathCommand { get; }
@@ -135,8 +137,8 @@ namespace CourseProject.ViewModels
         private bool CanDeleteTrackCommandExecute(object p) => !(selectTrack == null);
         private void OnDeleteTrackCommandExecuted(object p)
         {
-
             context.TRACKS.Remove(selectTrack);
+            context.SaveChanges();
             RestoreForm();
         }
         public ICommand ChangeAlbumCommand { get; }

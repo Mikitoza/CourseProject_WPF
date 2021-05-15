@@ -19,6 +19,7 @@
     <v:String x:Key="SingerPage">Испольнитель</v:String>
     <v:String x:Key="AddAlbumPage">Добавить альбом</v:String>
     <v:String x:Key="Admin">Админ</v:String>
+    <v:String x:Key="AddPlaylist">Создать плейлист</v:String>
     <!-- AddAlbumPage -->
     <v:String x:Key="PicsAlb">Выберите обложку альбома</v:String>
         <v:String x:Key="GenreName">Наименование жанра</v:String>
@@ -50,4 +51,7 @@
     <v:String x:Key="UrAlbums">Ваши альбомы</v:String>
     <v:String x:Key="Change">Изменить</v:String>
     <v:String x:Key="DeleteAlbums">Удалить альбом</v:String>
+    <!--PlaylistPage-->
+    <v:String x:Key="PlaylistName">Имя плейлиста</v:String>
+    <v:String x:Key="PlaylistAdd">Создать</v:String>
 </ResourceDictionary>

@@ -102,10 +102,12 @@
     <Compile Include="Resources\AttachedProperty\PasswordBoxAssistant.cs" />
     <Compile Include="Services\Converters\IDConventer.cs" />
     <Compile Include="Services\Converters\IDToSinger.cs" />
+    <Compile Include="Services\Converters\TrackToSinger.cs" />
     <Compile Include="Services\Validations\MaximumCharacterRule.cs" />
     <Compile Include="Services\Validations\MinimumCharacterRule.cs" />
     <Compile Include="Services\Validations\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\AddAlbumViewModel.cs" />
+    <Compile Include="ViewModels\AddPlaylistViewModel.cs" />
     <Compile Include="ViewModels\AdminPageViewModel.cs" />
     <Compile Include="ViewModels\AlbumPageViewModel.cs" />
     <Compile Include="ViewModels\AuthPageViewModel.cs" />
@@ -120,6 +122,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AddAlbumPage.xaml.cs">
       <DependentUpon>AddAlbumPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPlaylistPage.xaml.cs">
+      <DependentUpon>AddPlaylistPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
@@ -196,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddAlbumPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPlaylistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

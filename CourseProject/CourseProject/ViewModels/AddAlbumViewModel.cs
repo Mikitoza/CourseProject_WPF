@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,6 +20,7 @@ namespace CourseProject.ViewModels
         private readonly MusicService context = new MusicService();
         private readonly string _myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         private readonly USERS user;
+        private readonly WebClient myWebClient = new WebClient();
         private readonly BitmapImage _noPhoto = new BitmapImage(new Uri(@"pack://application:,,,/Resources/noimage.png"));
         private ObservableCollection<GENRES> _genres = new ObservableCollection<GENRES>(new MusicService().GENRES);
         public ObservableCollection<GENRES> genres
@@ -117,11 +119,20 @@ namespace CourseProject.ViewModels
             context.ALBUMS.Add(album);
             context.SaveChanges();
             ALBUMS albumNeedId = context.ALBUMS.First(a => a.albums_name == album.albums_name);
-            Directory.CreateDirectory(_myDocumentsPath + @"\MusicService");
-            Directory.CreateDirectory(_myDocumentsPath + $@"\MusicService\");
-            Directory.CreateDirectory(_myDocumentsPath + $@"\MusicService\{albumNeedId.album_id}");
-            File.Copy(_imgPath, _myDocumentsPath + $@"\MusicService\{album.album_id}\cover.jpg", true);
-            RestoreForm();
+            try
+            {
+                byte[] responseArray = myWebClient.UploadFile($"http://localhost:3000/upload/{albumNeedId.album_id}", _imgPath);
+                _albumPicture.BeginInit();
+                _albumPicture.CacheOption = BitmapCacheOption.OnLoad;
+                _albumPicture.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                _albumPicture.UriSource = new Uri($"https://wpfkypca4.herokuapp.com/albums/{albumNeedId.album_id}/");
+                _albumPicture.EndInit();
+            }
+            catch
+            {
+                _albumPicture = _noPhoto;
+            }
+
         }
         public AddAlbumViewModel(USERS user)
         {

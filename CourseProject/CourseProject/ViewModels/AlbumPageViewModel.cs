@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.IO;
 using Microsoft.Win32;
 using CourseProject.Commands;
+using System.Net;
 
 namespace CourseProject.ViewModels
 {
@@ -27,30 +28,12 @@ namespace CourseProject.ViewModels
             get => _tracksquat;
             set => Set(ref _tracksquat, value);
         }
-        private string _mp3Path;
         private ALBUMS _album;
         private bool _IsSinger;
         public bool IsSinger
         {
             get => _IsSinger;
             set => Set(ref _IsSinger, value);
-        }
-        private TRACKS _selectTrack;
-        public TRACKS selectTrack 
-        {
-            get => _selectTrack;
-            set => Set(ref _selectTrack, value);
-        }
-        private bool _dialog = false;
-        public bool dialog
-        {
-            get => _dialog;
-            set => Set(ref _dialog, value);
-        }
-        public string mp3Path
-        {
-            get => _mp3Path;
-            set => Set(ref _mp3Path, value);
         }
         public string Name
         {
@@ -77,60 +60,18 @@ namespace CourseProject.ViewModels
             get => _tracks;
             set => Set(ref _tracks, value);
         }
-        private void RestoreForm()
-        {
-            tracks = new ObservableCollection<TRACKS>();
-            var tracks1 = context.TRACKS.Where(t => t.album_id == album.album_id);
-            foreach (TRACKS track in tracks1)
-            {
-                tracks.Add(track);
-            }
-            Name = "";
-            _mp3Path = "";
-        }
-        public ICommand AddTrackCommand { get; }
-        private bool CanAddTrackExecute(object p) => _mainWindowViewModel.user.user_role == 1;
-        private void OnAddTrackCommandExecuted(object p)
-        {
-            TRACKS track = new TRACKS(Name,(int)album.id_user,album.album_id,(int)album.genre_id);
-            context.TRACKS.Add(track);
-            context.SaveChanges();
-            File.Copy(_mp3Path, _myDocumentsPath + $@"\MusicService\{album.album_id}\{track.track_name}.mp3", true);
-            RestoreForm();
-        }
-        public ICommand SelectMp3PathCommand { get; }
-        private bool CanSelectMp3PathCommandExecute(object p) => _mainWindowViewModel.user.user_role == 1;
-        private void OnSelectMp3PathCommandExecuted(object p)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Музыка|*.mp3;";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                _mp3Path = openFileDialog.FileName;
-            }
-        }
-        public ICommand CloseDialogCommand { get; }
-        private bool CanCloseDialogCommandExecute(object p) => true;
-        private void OnCloseDialogCommandExecuted(object p) => dialog = false;
-        public ICommand PlayTrackCommand { get; }
-        private bool CanPlayTrackCommandExecute(object p) => !(selectTrack == null);
-        private void OnPlayTrackCommandExecuted(object p)
-        {
-
-            _mainWindowViewModel.selectedTrack = selectTrack;
-        }
         public ICommand AddTrackToUserTracksCommand { get; }
-        private bool CanAddTrackToUserTracksCommandExecute(object p) => !context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Contains(selectTrack) & selectTrack !=null;
+        private bool CanAddTrackToUserTracksCommandExecute(object p) => !context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Contains(MainWindowViewModel.selectedTrack) & MainWindowViewModel.selectedTrack != null;
         private void OnAAddTrackToUserTracksCommandExecuted(object p)
         {
-            context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Add(selectTrack);
+            context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Add(MainWindowViewModel.selectedTrack);
             context.SaveChanges();
         }
         public ICommand DeleteTrackToUserTracksCommand { get; }
-        private bool CanDeleteTrackToUserTracksCommandExecute(object p) => context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Contains(selectTrack) & selectTrack != null;
+        private bool CanDeleteTrackToUserTracksCommandExecute(object p) => context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Contains(MainWindowViewModel.selectedTrack) & MainWindowViewModel.selectedTrack != null;
         private void OnDeleteTrackToUserTracksCommandExecuted(object p)
         {
-            context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Remove(selectTrack);
+            context.USERS.Find(MainWindowViewModel.user.id_user).TRACKS1.Remove(MainWindowViewModel.selectedTrack);
             context.SaveChanges();
         }
         public AlbumPageViewModel(MainWindowViewModel window, ALBUMS album)
@@ -146,10 +87,6 @@ namespace CourseProject.ViewModels
             }
             tracksquat = tracks.Count() * 50;
             IsSinger = user.user_role == 1;
-            AddTrackCommand = new LambdaCommand(OnAddTrackCommandExecuted,CanAddTrackExecute);
-            SelectMp3PathCommand = new LambdaCommand(OnSelectMp3PathCommandExecuted, CanSelectMp3PathCommandExecute);
-            CloseDialogCommand = new LambdaCommand(OnCloseDialogCommandExecuted, CanCloseDialogCommandExecute);
-            PlayTrackCommand = new LambdaCommand(OnPlayTrackCommandExecuted, CanPlayTrackCommandExecute);
             AddTrackToUserTracksCommand = new LambdaCommand(OnAAddTrackToUserTracksCommandExecuted, CanAddTrackToUserTracksCommandExecute);
             DeleteTrackToUserTracksCommand = new LambdaCommand(OnDeleteTrackToUserTracksCommandExecuted, CanDeleteTrackToUserTracksCommandExecute);
         }

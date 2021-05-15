@@ -33,6 +33,9 @@
                     <RowDefinition Height="281*"/>
                     <RowDefinition Height="47*"/>
                 </Grid.RowDefinitions>
+                <Button Grid.Row="3" Height="Auto" Background="Black" BorderBrush="Green" Command="{Binding AddPlaylistCommand}"> 
+                    <TextBlock Text="{DynamicResource AddPlaylist}" Foreground="Gray" FontSize="16" FontFamily="Segoe UI Black"/>
+                </Button>
             </Grid>
             <Grid Background="#FF2C2C2C"
               Grid.Row="2"
@@ -71,8 +74,6 @@
                     <TextBox.Text>
                         <Binding Path="Search" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                             <Binding.ValidationRules>
-                                <val:NotEmptyValidationRule/>
-                                <val:MinimumCharacterRule MinimumCharacters="3" />
                                 <val:MaximumCharacterRule MaximumCharacters="20" />
                             </Binding.ValidationRules>
                         </Binding>

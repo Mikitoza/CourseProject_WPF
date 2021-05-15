@@ -180,6 +180,14 @@ namespace CourseProject.ViewModels
             }
         }
         #endregion
+        #region AddPlaylist
+        public ICommand AddPlaylistCommand { get; }
+        private bool CanAddPlaylistCommandExecute(object p) => true;
+        private void OnAddPlaylistCommandExecuted(object p)
+        {
+            selectedVM = new AddPlaylistViewModel(this);
+        }
+        #endregion
         #region Play
         public ICommand PlayTraclCommand { get; }
         private bool CanPlayTraclCommandExecute(object p) => !(selectedTrack == null);
@@ -187,9 +195,11 @@ namespace CourseProject.ViewModels
         {
             if (track_name != selectedTrack.track_name)
             {
+                MessageBox.Show(selectedTrack.album_id.ToString());
+                MessageBox.Show(selectedTrack.track_name.ToString());
                 ButtonPlay = "Play";
                 mediaPlayer.Stop();
-                mediaPlayer.Open(new Uri(_myDocumentsPath + $@"\MusicService\{selectedTrack.album_id}\{selectedTrack.track_name}.mp3"));
+                mediaPlayer.Open(new Uri($"http://localhost:3000/albums/{selectedTrack.album_id}/{selectedTrack.track_name}.mp3"));
                 mediaPlayer.Play();
                 track_name = selectedTrack.track_name;
                 IsPlay = true;
@@ -211,6 +221,8 @@ namespace CourseProject.ViewModels
                 }
             }
         }
+        #endregion
+        #region SearchCommand
         public ICommand SearchCommand { get; }
         private bool CanSearchCommandExecute(object p) => Search?.Length >= 3;
         private void OnSearchCommandExecuted(object p)
@@ -234,6 +246,7 @@ namespace CourseProject.ViewModels
             PlayTraclCommand = new LambdaCommand(OnPlayTraclCommandExecuted, CanPlayTraclCommandExecute);
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SwitchLanguageCommand = new LambdaCommand(OnSwitchLanguageCommandExecuted, CanSwitchLanguageCommandExecute);
+            AddPlaylistCommand = new LambdaCommand(OnAddPlaylistCommandExecuted, CanAddPlaylistCommandExecute);
         }
 
         private void MediaPlayer_MediaOpened(object sender, EventArgs e)

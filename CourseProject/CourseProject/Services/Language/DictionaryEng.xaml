@@ -19,6 +19,7 @@
     <v:String x:Key="SingerPage">Singer</v:String>
     <v:String x:Key="AddAlbumPage">Add album</v:String>
     <v:String x:Key="Admin">Admin</v:String>
+    <v:String x:Key="AddPlaylist">Add Playlist</v:String>
     <!-- AddAlbumPage -->
     <v:String x:Key="PicsAlb">Choose album photo</v:String>
     <v:String x:Key="GenreName">Genre name</v:String>
@@ -51,4 +52,7 @@
     <v:String x:Key="UrAlbums">Your albums</v:String>
     <v:String x:Key="Change">Change</v:String>
     <v:String x:Key="DeleteAlbums">Delete album</v:String>
+    <!--PlaylistPage-->
+    <v:String x:Key="PlaylistName">Playlist name</v:String>
+    <v:String x:Key="PlaylistAdd">Add</v:String>
 </ResourceDictionary>

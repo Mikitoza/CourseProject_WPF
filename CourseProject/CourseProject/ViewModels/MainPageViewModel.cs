@@ -31,7 +31,11 @@ namespace CourseProject.ViewModels
         public ALBUMS selectedAlbum
         {
             get => _selectedAlbum;
-            set => Set(ref _selectedAlbum, value);
+            set
+            {
+                _selectedAlbum = value;
+                _MainWindowViewModel.selectedVM = new AlbumPageViewModel(_MainWindowViewModel,selectedAlbum);
+            }
         }
         public ObservableCollection<ALBUMS> albumlist
         {

@@ -7,9 +7,14 @@
              xmlns:vm="clr-namespace:CourseProject.ViewModels"
              xmlns:val="clr-namespace:CourseProject.Services.Validations"
              xmlns:local="clr-namespace:CourseProject.Views"
+             xmlns:convert="clr-namespace:CourseProject.Services.Converters"
                d:DataContext="{d:DesignInstance Type=vm:ProfilePageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="#FF1D1D1D">
+    <UserControl.Resources>
+        <convert:IDToSinger x:Key="IDToSinger"/>
+        <convert:TrackToSinger x:Key="TrackToSinger"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="59*"/>
@@ -34,16 +39,18 @@
             </TextBox.Text>
         </TextBox>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" PreviewMouseWheel="Scroll" Margin="10" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <ListBox ItemsSource="{Binding usersTracksList}" SelectedItem="{Binding selectTrack}" Width="484" Height="Auto" >
+            <ListBox ItemsSource="{Binding usersTracksList}" SelectedItem="{Binding MainWindowViewModel.selectedTrack}" Width="630" Height="Auto" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="20 20 20 0" Height="50">
+                        <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="170"/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="6*"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="1" Margin="0,0,0,-18">
-                                <TextBlock Text="{Binding track_name}" FontSize="17" Foreground="AliceBlue" Margin="5 5 0 0"/>
+                            <Image Source="{Binding album_id,Converter={StaticResource IDToSinger}}" Grid.Column="0"/>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding track_name}" FontSize="36" Foreground="AliceBlue"/>
+                                <TextBlock Text="{Binding album_id, Converter={StaticResource TrackToSinger}}" Foreground="AliceBlue"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -69,6 +76,5 @@
         <Button Height="Auto" Margin="34,106,36,211" Command="{Binding DeleteTrackToUserTracksCommand}" Grid.Column="2" Grid.Row="1">
             <materialDesign:PackIcon Kind="HeartOutline" Height="34" Width="24" />
         </Button>
-        <Button Command="{Binding LoadCommand}" Content="{DynamicResource Load}" Grid.Column="2" Margin="10,169,10,163" Grid.Row="1"/>
     </Grid>
 </UserControl>

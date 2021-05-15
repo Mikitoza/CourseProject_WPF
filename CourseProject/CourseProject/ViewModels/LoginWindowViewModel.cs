@@ -68,7 +68,7 @@ namespace CourseProject.ViewModels
         static void DataBase()
         {
             MusicService musicService = new MusicService();
-            musicService.USERS.FirstOrDefault(u => u.user_login == "");
+            musicService.USERS.FirstOrDefault(u => u.id_user == 1);
         }
 
         static async void DataBaseAsync()

@@ -31,12 +31,6 @@ namespace CourseProject.ViewModels
             get => _usersTracksList;
             set => Set(ref _usersTracksList, value);
         }
-        private TRACKS _selectTrack;
-        public TRACKS selectTrack
-        {
-            get => _selectTrack;
-            set => Set(ref _selectTrack, value);
-        }
         private string _nickname;
         public string nickname
         {
@@ -73,24 +67,24 @@ namespace CourseProject.ViewModels
             App.Current.Shutdown();
         }
         public ICommand AddTrackToUserTracksCommand { get; }
-        private bool CanAddTrackToUserTracksCommandExecute(object p) => !context.USERS.Find(user.id_user).TRACKS1.Contains(selectTrack) & selectTrack != null;
+        private bool CanAddTrackToUserTracksCommandExecute(object p) => !context.USERS.Find(user.id_user).TRACKS1.Contains(MainWindowViewModel.selectedTrack) & MainWindowViewModel.selectedTrack != null;
         private void OnAAddTrackToUserTracksCommandExecuted(object p)
         {
-            context.USERS.Find(user.id_user).TRACKS1.Add(selectTrack);
+            context.USERS.Find(user.id_user).TRACKS1.Add(MainWindowViewModel.selectedTrack);
             context.SaveChanges();
         }
         public ICommand DeleteTrackToUserTracksCommand { get; }
-        private bool CanDeleteTrackToUserTracksCommandExecute(object p) => context.USERS.Find(user.id_user).TRACKS1.Contains(selectTrack) & selectTrack != null;
+        private bool CanDeleteTrackToUserTracksCommandExecute(object p) => context.USERS.Find(user.id_user).TRACKS1.Contains(MainWindowViewModel.selectedTrack) & MainWindowViewModel.selectedTrack != null;
         private void OnDeleteTrackToUserTracksCommandExecuted(object p)
         {
-            context.USERS.Find(user.id_user).TRACKS1.Remove(selectTrack);
+            context.USERS.Find(user.id_user).TRACKS1.Remove(MainWindowViewModel.selectedTrack);
             context.SaveChanges();
         }
         public ICommand LoadCommand { get; }
-        private bool CanLoadCommandExecute(object p) => selectTrack != null;
+        private bool CanLoadCommandExecute(object p) => MainWindowViewModel.selectedTrack != null;
         private void OnLoadCommandExecuted(object p)
         {
-            MainWindowViewModel.selectedTrack = selectTrack;
+            MainWindowViewModel.selectedTrack = MainWindowViewModel.selectedTrack;
         }
         public ProfilePageViewModel(USERS user,MainWindowViewModel main)
         {

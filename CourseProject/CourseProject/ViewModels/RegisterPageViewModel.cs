@@ -55,7 +55,14 @@ namespace CourseProject.ViewModels
             if (context.USERS.FirstOrDefault(us => us.user_login == Login) != null)
             {
                 DialogVisible = true;
-                DialogText = "Такой пользователь уже существует";
+                if (App.Language.Name == "ru-RU")
+                {
+                    DialogText = "Такой пользователь уже существует";
+                }
+                else
+                {
+                    DialogText = "This user ia already exixts";
+                }
             }
             else
             {
@@ -70,7 +77,14 @@ namespace CourseProject.ViewModels
                     DataContext = mainWindowViewModel
                 };
                 DialogVisible = true;
-                DialogText = "Регистрация прошла успешно";
+                if (App.Language.Name == "ru-RU")
+                {
+                    DialogText = "Регистрация прошла успешно";
+                }
+                else
+                {
+                    DialogText = "Registration is successful";
+                }
                 mainWindow.Show();
                 Application.Current.MainWindow.Close();
             }
