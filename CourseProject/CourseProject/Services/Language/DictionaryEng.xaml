@@ -33,7 +33,7 @@
     <v:String x:Key="Delete">Delete</v:String>
     <!-- ChangeAlbumPage -->
     <v:String x:Key="TrackName">Track name</v:String>
-    <v:String x:Key="ChooseTrack">Chose track</v:String>
+    <v:String x:Key="ChooseTrack">Choose track</v:String>
     <v:String x:Key="AddTrack">Add track</v:String>
     <v:String x:Key="DeleteTrack">Delete track</v:String>
     <v:String x:Key="ChangeAlbum">Change album</v:String>

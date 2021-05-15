@@ -33,9 +33,33 @@
                     <RowDefinition Height="281*"/>
                     <RowDefinition Height="47*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="3" Height="Auto" Background="Black" BorderBrush="Green" Command="{Binding AddPlaylistCommand}"> 
+                <Button Grid.Row="3" Height="Auto" Background="Black" BorderBrush="Green" Command="{Binding AddPlaylistCommand}">
                     <TextBlock Text="{DynamicResource AddPlaylist}" Foreground="Gray" FontSize="16" FontFamily="Segoe UI Black"/>
                 </Button>
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" PreviewMouseWheel="Scroll" Margin="10,10,10,0">
+                    <ListBox ItemsSource="{Binding playlists}" SelectedItem="{Binding selectedPlaylist}" Width="170" Height="352">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding playlist_name}" FontSize="18" Foreground="AliceBlue"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
             </Grid>
             <Grid Background="#FF2C2C2C"
               Grid.Row="2"

@@ -5,55 +5,101 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:val ="clr-namespace:CourseProject.Services.Validations"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:convert="clr-namespace:CourseProject.Services.Converters"
              xmlns:local="clr-namespace:CourseProject.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="#FF1D1D1D">
-    <materialDesign:DialogHost 
-        IsOpen="{Binding dialog}" Grid.RowSpan="2" Grid.ColumnSpan="3">
-        <materialDesign:DialogHost.DialogContent>
-            <Border Height="Auto" Width="Auto">
-                <StackPanel Margin="16">
-                    <TextBlock Text="{Binding dialogText}"/>
-                    <Button Margin="0 10 0 0" Style="{StaticResource MaterialDesignFlatAccentButton}"
-                                Content="Закрыть" Foreground="#6E304B" Width="90" Height="30" Command="{Binding CloseDialogCommand}"/>
-                </StackPanel>
-            </Border>
-        </materialDesign:DialogHost.DialogContent>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="298*"/>
-                <ColumnDefinition Width="157*"/>
-                <ColumnDefinition Width="345*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="38*"/>
-            </Grid.RowDefinitions>
-            <TextBox Text="{Binding AlbumName,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource Search}" Foreground="AliceBlue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,16,71,16" />
-            <Button Grid.Column="0" Height="Auto" Command="{Binding SearchCommand}" Margin="232,10,10,10">
-                <materialDesign:PackIcon Kind="Magnify" Height="38" Width="27" />
-            </Button>
-            <TextBox Text="{Binding AlbumName,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource PlaylistName}" Foreground="AliceBlue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="0,16,141,16" />
-            <Button Grid.Column="2" Height="Auto" Command="{Binding SearchCommand}" Margin="209,10,10,10">
-                <TextBlock Text="{DynamicResource PlaylistAdd}"/>
-            </Button>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="1"  PreviewMouseWheel="Scroll" Margin="10,10,10,15">
-                <ListBox Width="Auto" 
-                    ItemsSource ="{Binding TrackList}" SelectedItem="{Binding selectedTrack}" Height="177">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0 0 50 0">
-                                <TextBlock Foreground="AliceBlue" FontSize="20" Text="{Binding track_name}" />
+    <UserControl.Resources>
+        <convert:TrackToSinger x:Key="TrackToSinger"/>
+        <convert:IDToSinger x:Key="IDToSinger"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="298*"/>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="345*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="38*"/>
+        </Grid.RowDefinitions>
+        <TextBox Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource Search}" Foreground="AliceBlue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,16,71,16" />
+        <Button Grid.Column="0" Height="Auto" Command="{Binding SearchTracks}" Margin="232,10,10,10">
+            <materialDesign:PackIcon Kind="Magnify" Height="38" Width="27" />
+        </Button>
+        <TextBox Text="{Binding playlistName,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource PlaylistName}" Foreground="AliceBlue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="0,16,141,16" />
+        <Button Grid.Column="2" Height="Auto" Command="{Binding AddPlaylistCommand}" Margin="209,10,10,10">
+            <TextBlock Text="{DynamicResource PlaylistAdd}"/>
+        </Button>
+        <Button Grid.Column="1" Grid.Row="1" Margin="52,148,53,200" Command="{Binding AddTrackToPlaylistCommand}">
+            <materialDesign:PackIcon Kind="ArrowRightBold" Height="22" Width="25"/>
+        </Button>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" PreviewMouseWheel="Scroll" Margin="10">
+            <ListBox ItemsSource="{Binding TrackList}" SelectedItem="{Binding selectedTrack}" Width="268" Height="350" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding album_id,Converter={StaticResource IDToSinger}}" Grid.Column="0"/>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding track_name}" FontSize="36" Foreground="AliceBlue"/>
+                                <TextBlock Text="{Binding album_id, Converter={StaticResource TrackToSinger}}" Foreground="AliceBlue"/>
                             </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
-        </Grid>
-    </materialDesign:DialogHost>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </ScrollViewer>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" PreviewMouseWheel="Scroll" Margin="10" Grid.Column="2">
+            <ListBox ItemsSource="{Binding PlaylistTracklist}" SelectedItem="{Binding selectedPlaylistTrack}" Width="268" Height="350" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding album_id,Converter={StaticResource IDToSinger}}" Grid.Column="0"/>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding track_name}" FontSize="36" Foreground="AliceBlue"/>
+                                <TextBlock Text="{Binding album_id, Converter={StaticResource TrackToSinger}}" Foreground="AliceBlue"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </ScrollViewer>
+        <Button Grid.Column="1" Grid.Row="1" Margin="52,111,53,237" Command="{Binding DeleteTrackToPlaylistCommand}">
+            <materialDesign:PackIcon Kind="ArrowLeftBold" Height="22" Width="25"/>
+        </Button>
+    </Grid>
 </UserControl>

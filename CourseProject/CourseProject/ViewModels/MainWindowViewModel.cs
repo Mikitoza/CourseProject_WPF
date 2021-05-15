@@ -103,6 +103,12 @@ namespace CourseProject.ViewModels
                 RaisePropertyChanged("selectedTrack");
             }
         }
+        private PLAYLISTS _selectedPlaylist;
+        public PLAYLISTS selectedPlaylist
+        {
+            get => _selectedPlaylist;
+            set => Set(ref _selectedPlaylist, value);
+        }
         private MediaPlayer _mediaPlayer = new MediaPlayer();
         public MediaPlayer mediaPlayer
         {
@@ -120,6 +126,12 @@ namespace CourseProject.ViewModels
         {
             get => _selectedVM;
             set => Set(ref _selectedVM, value);
+        }
+        private List<PLAYLISTS> _playlists;
+        public List<PLAYLISTS> playlists
+        {
+            get => _playlists;
+            set => Set(ref _playlists, value);
         }
         void Stoping()
         {
@@ -241,6 +253,7 @@ namespace CourseProject.ViewModels
             IsAdmin = user.user_role == (int)UserRole.Admin;
             mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
             selectedVM = new MainPageViewModel(user,this);
+            playlists = musicService.PLAYLISTS.Where(pl => pl.id_user == user.id_user).ToList();
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             SwitchViewCommand = new LambdaCommand(OnSwitchViewCommandExecuted, CanSwitchViewCommandExecute);
             PlayTraclCommand = new LambdaCommand(OnPlayTraclCommandExecuted, CanPlayTraclCommandExecute);

@@ -27,5 +27,10 @@ namespace CourseProject.DataModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRACKS> TRACKS { get; set; }
+        public PLAYLISTS(string name,int id_user)
+        {
+            playlist_name = name;
+            this.id_user = id_user;
+        }
     }
 }
